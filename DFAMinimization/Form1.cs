@@ -60,9 +60,10 @@ namespace DFAMinimization
             pnl_MinimizedDFA.Controls.Add(grp_Name);
 
             Label lbl_Name = new Label();
-            lbl_Name.Width = 80;
-            lbl_Name.Location = new Point(10, 10);
+            lbl_Name.Width = 90;
+            lbl_Name.Location = new Point(0, 10);
             lbl_Name.Text = DFA.Name;
+            lbl_Name.ForeColor = Color.Blue;
             lbl_Name.Font = new Font(lbl_Name.Font, FontStyle.Bold);
             grp_Name.Controls.Add(lbl_Name);
 
