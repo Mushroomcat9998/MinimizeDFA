@@ -215,7 +215,7 @@ namespace DFAMinimization
 
             newDFA.States = newStates;
             newDFA.TransitionFunction = newTF;
-            newDFA.FinalStates = newFinalStates;               
+            newDFA.FinalStates = newFinalStates;            
             
             return newDFA;
         }

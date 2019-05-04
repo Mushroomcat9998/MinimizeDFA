@@ -14,8 +14,8 @@ namespace DFAMinimization
     public partial class DFAMinimization : Form
     {
         string fileName = string.Empty;
-        DFA oldDFA = new DFA("Opened DFA");
-        DFA newDFA = new DFA("Minimized DFA");
+        DFA openedDFA = new DFA("Opened DFA");
+        DFA newDFA = new DFA();
         public DFAMinimization()
         {
             InitializeComponent();
@@ -24,24 +24,25 @@ namespace DFAMinimization
         private void btn_OpenDFAFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog OFDialog = new OpenFileDialog();
-            OFDialog.InitialDirectory = "D:\\";
+            OFDialog.InitialDirectory = "D:\\WinForm\\DFAMinimization";
             OFDialog.RestoreDirectory = true;
             OFDialog.Filter = "files *.txt|*.txt";
 
             if (OFDialog.ShowDialog() == DialogResult.OK)
                 fileName = OFDialog.FileName;
 
-            oldDFA = new DFA("Opened DFA");
-            oldDFA.FillDFA(fileName);
+            openedDFA = new DFA("Opened DFA");
+            openedDFA.FillDFA(fileName);
             pnl_MinimizedDFA.Controls.Clear();
 
-            printDFA(oldDFA, 0);           
+            printDFA(openedDFA, 0);           
         }
 
 
         private void btn_MinimizeOpenedDFA_Click(object sender, EventArgs e)
         {
-            newDFA = oldDFA.ReduceDFA();
+            newDFA = openedDFA.ReduceDFA();
+            newDFA.Name = "Minimized DFA";
             printDFA(newDFA, 450);
         }
 
@@ -62,6 +63,7 @@ namespace DFAMinimization
             lbl_Name.Width = 80;
             lbl_Name.Location = new Point(10, 10);
             lbl_Name.Text = DFA.Name;
+            lbl_Name.Font = new Font(lbl_Name.Font, FontStyle.Bold);
             grp_Name.Controls.Add(lbl_Name);
 
             for (int i = 0; i < DFA.Letters.Count; i++)
@@ -76,6 +78,7 @@ namespace DFAMinimization
                 lbl_Letter.Width = 80;
                 lbl_Letter.Location = new Point(10, 10);
                 lbl_Letter.Text = DFA.Letters[i];
+                lbl_Letter.Font = new Font(lbl_Letter.Font, FontStyle.Bold);
                 grp_Letter.Controls.Add(lbl_Letter);
             }
 
@@ -91,6 +94,7 @@ namespace DFAMinimization
                 lbl_FirstState.Width = 80;
                 lbl_FirstState.Location = new Point(10, 10);
                 lbl_FirstState.Text = DFA.States[i];
+                lbl_FirstState.Font = new Font(lbl_FirstState.Font, FontStyle.Bold);
                 if (DFA.FinalStates.Contains(DFA.States[i]))
                     lbl_FirstState.ForeColor = Color.Red;
                 grp_FirstState.Controls.Add(lbl_FirstState);
@@ -107,6 +111,7 @@ namespace DFAMinimization
                     lbl_SecondState.Width = 80;
                     lbl_SecondState.Location = new Point(10, 10);
                     lbl_SecondState.Text = DFA.TransitionFunction[i, j];
+                    lbl_SecondState.Font = new Font(lbl_SecondState.Font, FontStyle.Bold);
                     grp_SecondState.Controls.Add(lbl_SecondState);
                 }
             }
